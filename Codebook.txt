@@ -1,0 +1,18 @@
+Codebook for variable names
+==============================
+
+Subject: individual whose measurements were used.
+
+Activity: six different categories of activities analyzed in the data (WALKING, WALKING UPSTAIRS, WALKING DOWNSTAIRS, SITTING, STANDING, and LAYING).
+
+Variables are from accelerometer data.  They are either time domain signals (with the prefix t) or Fast Fourier Transforms of the data (with the prefix f).  
+
+Acceleration data are from either body or gravity measurements. These measurements are broken down into either linear or angular accelerations.  
+
+Jerk signals are derived from both the linear and angular accelerations.  
+
+Finally, measurements that are in a single dimension (X, Y or Z) are indicated.
+
+mean = mean of data
+std = standard deviation
+
