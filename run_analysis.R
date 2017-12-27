@@ -2,32 +2,27 @@
 ##Then combine the training and test datasets and generate a new dataframe with only the means and standard deviation variables (named meanstd).  
 ##Finally, using meanstd, generate a summary dataframe with the average for each variable, organized by both subject and activity (called meansumm).
 
-##Script to download the UCI smartphone dataset, add informative labels for activities, subjects and variables.  
-##Then combine the training and test datasets and generate a new dataframe with only the means and standard deviation variables (named meanstd).  
-##Finally, using meanstd, generate a summary dataframe with the average for each variable, organized by both subject and activity (called meansumm).
-
 library(plyr)
-setwd("~/Desktop/")
 download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip",destfile = "cleaning data.zip")
 unzip("cleaning data.zip")
-testDF <- read.table("~/Desktop/UCI HAR Dataset/test/X_test.txt")
-features <- read.table("~/Desktop/UCI HAR Dataset/features.txt")
+testDF <- read.table("UCI HAR Dataset/test/X_test.txt")
+features <- read.table("UCI HAR Dataset/features.txt")
 colnames (testDF) <- features[ , 2]
-testlabDF <- read.table("~/Desktop/UCI HAR Dataset/test/y_test.txt")
+testlabDF <- read.table("UCI HAR Dataset/test/y_test.txt")
 colnames(testlabDF) <- "code"
-LUT <- read.table("~/Desktop/UCI HAR Dataset/activity_labels.txt")
+LUT <- read.table("UCI HAR Dataset/activity_labels.txt")
 colnames(LUT) <- c("code", "activity")
 
-testsubjDF <- read.table("~/Desktop/UCI HAR Dataset/test/subject_test.txt")
+testsubjDF <- read.table("UCI HAR Dataset/test/subject_test.txt")
 colnames(testsubjDF) <- "subject"
 relabeledtestlabDF <- testlabDF
 relabeledtestlabDF[] <- LUT$activity[match(unlist(relabeledtestlabDF), LUT$code)]
 colnames(relabeledtestlabDF) <- "activity"
 testDF <- cbind(testsubjDF, testlabDF, relabeledtestlabDF, testDF)
-trainDF <- read.table("~/Desktop/UCI HAR Dataset/train/X_train.txt")
-trainlabDF <- read.table("~/Desktop/UCI HAR Dataset/train/y_train.txt")
+trainDF <- read.table("UCI HAR Dataset/train/X_train.txt")
+trainlabDF <- read.table("UCI HAR Dataset/train/y_train.txt")
 colnames(trainlabDF) <- "code"
-trainsubjDF <- read.table("~/Desktop/UCI HAR Dataset/train/subject_train.txt")
+trainsubjDF <- read.table("UCI HAR Dataset/train/subject_train.txt")
 colnames(trainsubjDF) <- "subject"
 colnames (trainDF) <- features[ , 2]
 relabeledtrainlabDF <- trainlabDF
@@ -55,4 +50,3 @@ rm("x")
 
 meansumm <- ddply(meanstd,. (subject, activity), numcolwise(mean))
 write.table(meansumm, "means_by_subject_activity.txt", row.names = FALSE)
-
