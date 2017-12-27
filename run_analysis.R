@@ -2,6 +2,10 @@
 ##Then combine the training and test datasets and generate a new dataframe with only the means and standard deviation variables (named meanstd).  
 ##Finally, using meanstd, generate a summary dataframe with the average for each variable, organized by both subject and activity (called meansumm).
 
+##Script to download the UCI smartphone dataset, add informative labels for activities, subjects and variables.  
+##Then combine the training and test datasets and generate a new dataframe with only the means and standard deviation variables (named meanstd).  
+##Finally, using meanstd, generate a summary dataframe with the average for each variable, organized by both subject and activity (called meansumm).
+
 library(plyr)
 setwd("~/Desktop/")
 download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip",destfile = "cleaning data.zip")
@@ -50,4 +54,5 @@ colnames(meanstd) <- x
 rm("x")
 
 meansumm <- ddply(meanstd,. (subject, activity), numcolwise(mean))
-write.table(meansumm, "av of each variable by subject and activity.txt", row.names = FALSE)
+write.table(meansumm, "means_by_subject_activity.txt", row.names = FALSE)
+
